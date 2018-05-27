@@ -15,17 +15,13 @@ def getme():
 	data=[]
 
 	for i in range(len(no_of_items)):
-		print("Current Dieases No: {}".format(i))
 		link_name=soup.select('.flex-item')[i].find('a').text[1:]
-		print("Current Name: {}".format(link_name))
 		linkElem=soup.select('.flex-item a')[i]
 		link_next=linkElem.get('href')
 		if not link_next.startswith('http'):
 			link_next=base_url+link_next
-		print ('next link:{}'.format(link_next))
 		link_img=soup.select('.flex-item img')[i].get('src')
 		link_img=base_url+link_img
-		print ('image src:{}'.format(link_img))
 		data.append([link_name,link_next,link_img])
 	return data
 
@@ -149,8 +145,12 @@ def getme_again(data):
 		rows+=1
 		sec+=1
 		
-	book.save('Sample7.xlsx')	
+	book.save('Scraped_data.xlsx')	
 
 
+def main():
+	getme_again(getme())
 
-getme_again(getme())
+
+if __name__ == '__main__':
+	main()
